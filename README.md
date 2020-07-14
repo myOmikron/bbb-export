@@ -15,6 +15,7 @@ whereas the width is variable.
 ## Usage
 
 Specify in `ffmpeg.py` the variable `FFMPEG` with the location of ffmpeg.
+There is a precompiled version of ffmpeg in the folder ffmpeg.
 
 `python3 download.py meeting_id`
 
