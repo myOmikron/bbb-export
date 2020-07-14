@@ -12,10 +12,12 @@ def set_logfile(file):
     global logfile
     logfile = file
 
+
 def make_mp4(video_file, out_file):
     command = '%s -i %s -c:v libx264 %s -y' % (
         FFMPEG, video_file, out_file)
     os.system(command)
+
 
 def scale_fixed(video_file, out_file):
     command = '%s -i %s -vf "scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:(ow-iw)/2:(oh-ih)/2,setsar=1" -c:v libx264 -max_muxing_queue_size 1024  %s -y' % (
@@ -23,16 +25,19 @@ def scale_fixed(video_file, out_file):
     print("Calling scale_fixed" + command)
     os.system(command)
 
+
 def scale_height(height, video_file, out_file):
     command = '%s -i %s -vf scale=-2:%s %s -y' % (
          FFMPEG, video_file, str(height), out_file)
     print("Calling scale_height" + command)
     os.system(command)
 
+
 def concat_presentation_webcam(presentation_file, webcam_file, out_file):
     command = '%s -i %s -i %s -max_muxing_queue_size 1024 -c:v libx264 -filter_complex hstack -r 24 %s -y' % (
         FFMPEG, presentation_file, webcam_file, out_file)
     os.system(command)
+
 
 def mux_slideshow_audio(video_file, audio_file, out_file):
     command = '%s -i %s -i %s -map 0 -map 1 -codec copy -shortest %s 2>> %s' % (
