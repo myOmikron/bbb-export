@@ -13,14 +13,12 @@ def make_mp4(video_file, out_file):
 def scale_fixed(video_file, out_file):
     command = '%s -i %s -vf "scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:(ow-iw)/2:(oh-ih)/2,setsar=1" -c:v libx264 -max_muxing_queue_size 1024  %s -y' % (
         FFMPEG, video_file, out_file)
-    print("Calling scale_fixed" + command)
     os.system(command)
 
 
 def scale_height(height, video_file, out_file):
     command = '%s -i %s -vf scale=-2:%s %s -y' % (
-         FFMPEG, video_file, str(height), out_file)
-    print("Calling scale_height" + command)
+        FFMPEG, video_file, str(height), out_file)
     os.system(command)
 
 
@@ -33,40 +31,32 @@ def concat_presentation_webcam(presentation_file, webcam_file, out_file):
 def mux_slideshow_audio(video_file, audio_file, out_file):
     command = '%s -i %s -i %s -map 0 -map 1 -codec copy -shortest %s 2' % (
         FFMPEG, video_file, audio_file, out_file)
-    print("Calling mux_slideshow_audio:" + command)
     os.system(command)
 
 
 def extract_audio_from_video(video_file, out_file):
     command = '%s -i %s -ab 160k -ac 2 -ar 44100 -vn %s 2' % (FFMPEG, video_file, out_file)
-    print("Calling extract_audio_from_video:" + command)
     os.system(command)
 
 
 def create_video_from_image(image, duration, out_file):
-    print("*************** create_video_from_image ******************")
-    print(image, "\n", duration, "\n", out_file)
     command = '%s -loop 1 -r 5 -f image2 -i %s -c:v %s -t %s -pix_fmt yuv420p -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" %s 2' % (
         FFMPEG, image, VID_ENCODER, duration, out_file)
-    print("Calling create_video_from_image" + command)
     os.system(command)
 
 
 def concat_videos(video_list, out_file):
     command = '%s -y -f concat -safe 0 -i %s -c copy %s 2' % (FFMPEG, video_list, out_file)
-    print("Calling concat_videos:" + command)
     os.system(command)
 
 
 def mp4_to_ts(input, output):
     command = '%s -i %s -c copy -bsf:v h264_mp4toannexb -f mpegts %s 2' % (FFMPEG, input, output)
-    print("Calling mp4_to_ts:" + command)
     os.system(command)
 
 
 def concat_ts_videos(input, output):
     command = '%s -i %s -c copy -bsf:a aac_adtstoasc %s 2' % (FFMPEG, input, output)
-    print("Calling concat_ts_videos:" + command)
     os.system(command)
 
 
@@ -90,8 +80,7 @@ def trim_video(video_file, start, end, out_file):
 
     str1 = '%d:%d:%d' % (start_h, start_m, start_s)
     str2 = '%d:%d:%d' % (end_h, end_m, end_s)
-    command = '%s -ss %s -t %s -i %s -vcodec copy -acodec copy %s 2' % (
-    FFMPEG, str1, str2, video_file, out_file)
+    command = '%s -ss %s -t %s -i %s -vcodec copy -acodec copy %s 2' % (FFMPEG, str1, str2, video_file, out_file)
     os.system(command)
 
 
@@ -113,7 +102,6 @@ def trim_audio(audio_file, start, end, out_file):
     str1 = '%d:%d:%d' % (start_h, start_m, start_s)
     str2 = '%d:%d:%d' % (end_h, end_m, end_s)
     command = '%s -ss %s -t %s -i %s %s' % (FFMPEG, str1, str2, audio_file, temp_file)
-    print(command)
     os.system(command)
     mp3_to_aac(temp_file, out_file)
     os.remove(temp_file)
