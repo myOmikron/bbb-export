@@ -59,7 +59,7 @@ def create_slideshow(dictionary, length, result):
     video_list_fn = []
     f = open(video_list, 'w')
 
-    times = dictionary.keys()
+    times = list(dictionary.keys())
     times.sort()
 
     ffmpeg.webm_to_mp4(SOURCE_DESKSHARE, TMP_DESKSHARE_FILE)
@@ -114,7 +114,7 @@ def get_presentation_dims(presentation_name):
 
 
 def rescale_presentation(new_height, new_width, dictionary, bbb_version):
-    times = dictionary.keys()
+    times = list(dictionary.keys())
     times.sort()
     for i, t in enumerate(times):
         if i < 1 and '2.0.0' > bbb_version:
