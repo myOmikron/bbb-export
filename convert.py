@@ -19,7 +19,7 @@ PATH = '/var/bigbluebutton/published/presentation/'
 source_dir = PATH + meetingId + "/"
 temp_dir = source_dir + 'temp/'
 target_dir = source_dir + 'download/'
-events_file = 'shapes.svg'
+events_file = source_dir + 'shapes.svg'
 source_events = '/var/bigbluebutton/recording/raw/' + meetingId + '/events.xml'
 # Deskshare
 SOURCE_DESKSHARE = source_dir + 'deskshare/deskshare.webm'
