@@ -28,6 +28,11 @@ def concat_presentation_webcam(presentation_file, webcam_file, out_file):
     os.system(command)
 
 
+def scale_1920_1080(in_file, out_file):
+    command = '%s -i %s -vf scale=1920:1080 %s -y' % (FFMPEG, in_file, out_file)
+    os.system(command)
+
+
 def mux_slideshow_audio(video_file, audio_file, out_file):
     command = '%s -i %s -i %s -map 0 -map 1 -codec copy -shortest %s' % (
         FFMPEG, video_file, audio_file, out_file)

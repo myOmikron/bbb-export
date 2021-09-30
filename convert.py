@@ -221,7 +221,8 @@ def main():
         if os.path.isfile(source_dir + 'video/webcams.webm') and not os.path.isfile(source_dir + 'video/webcams.mp4'):
             ffmpeg.make_mp4(source_dir + 'video/webcams.webm', source_dir + 'video/webcams.mp4')
         ffmpeg.scale_height(height, source_dir + 'video/webcams.mp4', source_dir + 'video/webcams_new.mp4')
-        ffmpeg.concat_presentation_webcam(slideshow, source_dir + 'video/webcams_new.mp4', source_dir + 'output.mp4')
+        ffmpeg.concat_presentation_webcam(slideshow, source_dir + 'video/webcams_new.mp4', source_dir + 'video/stacked.mp4')
+        ffmpeg.scale_1920_1080(source_dir + "video/stacked.mp4", source_dir + "output.mp4")
     finally:
         print(sys.stderr, "Cleaning up temp files...")
         cleanup()
