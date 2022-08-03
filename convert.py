@@ -42,6 +42,9 @@ def extract_timings(bbb_version):
         in_times = str(image.getAttribute('in')).split(' ')
         out_times = image.getAttribute('out').split(' ')
 
+        if any(x == "" for x in out_times):
+            continue
+
         temp = float(out_times[len(out_times) - 1])
         if temp > total_length:
             total_length = temp
